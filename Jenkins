@@ -1,47 +1,69 @@
 pipeline {
     agent any
-    
+
     stages {
         stage('Build') {
             steps {
-                // Build automation tool (e.g., Maven) command here
+                echo 'Building the code...'
+             
             }
         }
         
         stage('Unit and Integration Tests') {
             steps {
-                // Test automation tools (e.g., JUnit, Selenium) commands here
+                echo 'Running unit tests...'
+             
+                
+                echo 'Running integration tests...'
+               
             }
         }
         
         stage('Code Analysis') {
             steps {
-                // Code analysis tool (e.g., SonarQube) command here
+                echo 'Performing code analysis...'
+              
             }
         }
         
         stage('Security Scan') {
             steps {
-                // Security scanning tool (e.g., OWASP ZAP, SonarQube) command here
+                echo 'Performing security scan...'
+               
             }
         }
         
         stage('Deploy to Staging') {
             steps {
-                // Deployment commands to staging server here
+                echo 'Deploying to staging server...'
+                
             }
         }
         
         stage('Integration Tests on Staging') {
             steps {
-                // Integration tests on staging server commands here
+                echo 'Running integration tests on staging...'
+              
             }
         }
         
         stage('Deploy to Production') {
             steps {
-                // Deployment commands to production server here
+                echo 'Deploying to production server...'
+               
             }
+        }
+    }
+
+    post {
+        always {
+            // email notifications
+            emailext (
+                subject: "Status: ${currentBuild.result}",
+                body: "Pipeline completed : ${currentBuild.result}",
+                to: "bansalgaurang23@gmail.com",
+                attachmentsPattern: '*/'
+            )
         }
     }
 }
